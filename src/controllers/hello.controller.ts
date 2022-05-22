@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 // schema
 import User from '../models/user.model';
+// validation
+import { createUserValidate } from '../validation/user.validation';
 
 // controllers
 const getHelloUser = (req: Request, res: Response) => {
@@ -8,7 +10,11 @@ const getHelloUser = (req: Request, res: Response) => {
 };
 const postHelloUser = async (req: Request, res: Response) => {
     const { username, email } = req.body;
-    if (!username || !email) return res.send({ message: 'email and username is must' });
+
+    // validation of the user request
+    const check = createUserValidate.validate(req.body);
+    if (check.error) return res.send({ error: check.error });
+
     try {
         const user = new User({
             name: username,
