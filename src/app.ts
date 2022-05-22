@@ -12,9 +12,7 @@ app.use(morgan('dev'));
 // db connection
 import connectDB from './config/db';
 connectDB();
-mongoose.connection.once('open', () => {
-    console.log('Connected to DB');
-});
+
 // routes
 import routes from './routes/routes';
 app.use('/api', routes);
