@@ -2,5 +2,9 @@
     "parser": "@typescript-eslint/parser",
     "extends": ["plugin:@typescript-eslint/recommended", "eslint-config-prettier"],
     "parserOptions": { "ecmaVersion": 2016, "sourceType": "module" },
-    "plugins": ["eslint-plugin-prettier"]
+    "plugins": ["eslint-plugin-prettier"],
+    "rules": {
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+    }
 }

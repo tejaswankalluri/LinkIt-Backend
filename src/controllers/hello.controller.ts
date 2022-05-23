@@ -3,10 +3,10 @@ import { Request, Response } from 'express';
 import User from '../models/user.model';
 // validation
 import { createUserValidate } from '../validation/user.validation';
-
 // controllers
 const getHelloUser = (req: Request, res: Response) => {
-    res.send('hello world from controller');
+    // @ts-ignore
+    return res.send({ name: req.user.email });
 };
 const postHelloUser = async (req: Request, res: Response) => {
     const { username, email } = req.body;
