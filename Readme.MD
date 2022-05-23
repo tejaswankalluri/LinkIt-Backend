@@ -1,9 +1,15 @@
 # LinkIt
 
+[![wakatime](https://wakatime.com/badge/user/ed7986b8-4fb9-4300-8c3e-b39f2342cb2e/project/85771045-3a0f-4c4a-8437-ca0306c66554.svg)](https://wakatime.com/badge/user/ed7986b8-4fb9-4300-8c3e-b39f2342cb2e/project/85771045-3a0f-4c4a-8437-ca0306c66554)
+
 ## Main focus on LinkIt
 
 Linkit manages muliple links of the users as a one page link. This is similar to the
 [Linktree](https://linktr.ee)
+
+---
+
+![App logo](https://raw.githubusercontent.com/tejaswankalluri/LinkIt-Backend/main/docs/logos/desktop.svg)
 
 ## Main Features
 
