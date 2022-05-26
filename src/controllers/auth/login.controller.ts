@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import User from '../../models/user.model';
 import { loginUserValidate } from '../../validation/auth/loginUser.validation';
 import bcrypt from 'bcrypt';
 import JwtService from '../../services/jwt.services';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 const loginUser = async (req: Request, res: Response) => {
     const { error } = loginUserValidate.validate(req.body);
@@ -10,7 +11,7 @@ const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     // check the user has an account
     try {
-        const user = await User.findOne({ email: email });
+        const user = await prisma.users.findUnique({ where: { email: email } });
         if (!user) {
             return res.status(403).send({ message: 'Email or password is Invalid' });
         }
@@ -19,15 +20,15 @@ const loginUser = async (req: Request, res: Response) => {
         if (!checkpass) {
             return res.status(403).send({ message: 'Email or password is Invalid' });
         }
-        console.log(user._id);
+        console.log(user.id);
         // sign token
         const payload = {
             username: user.username,
-            id: user._id,
+            id: user.id,
         };
         const token = JwtService.sign(payload);
 
-        return res.send({ id: user._id, access_token: `Bearer ${token}`, username: user.username });
+        return res.send({ id: user.id, access_token: `Bearer ${token}`, username: user.username });
     } catch (err) {
         console.log(err);
         return res.status(500).send({ message: 'internal server error' });

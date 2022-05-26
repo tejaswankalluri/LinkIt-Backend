@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
-// import Links, { ILinks } from '../models/links.model';
-// import { HydratedDocument } from 'mongoose';
+
 // schema
-import User from '../models/user.model';
-// validation
-import { createUserValidate } from '../validation/user.validation';
+// import { PrismaClient } from '@prisma/client';
+// const prisma = new PrismaClient();
+
 // controllers
 const getHelloUser = async (req: Request, res: Response) => {
     // try {
@@ -24,25 +23,11 @@ const getHelloUser = async (req: Request, res: Response) => {
     //     console.log(err);
     //     return res.status(500).send();
     // }
+
     // @ts-ignore
-    return res.send({ name: req.user.email });
+    return res.send({ user: req.user });
 };
 const postHelloUser = async (req: Request, res: Response) => {
-    const { username, email } = req.body;
-
-    // validation of the user request
-    const check = createUserValidate.validate(req.body);
-    if (check.error) return res.send({ error: check.error });
-
-    try {
-        const user = new User({
-            name: username,
-            email: email,
-        });
-        await user.save();
-        return res.send({ message: 'user added' });
-    } catch (err) {
-        res.status(500).send({ message: 'internal server Error' });
-    }
+    res.send('hello');
 };
 export { getHelloUser, postHelloUser };

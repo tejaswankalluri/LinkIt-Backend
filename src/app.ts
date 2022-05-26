@@ -11,10 +11,6 @@ app.use(morgan('dev'));
 app.use(passport.initialize());
 import './middleware/passport';
 
-// db connection
-import connectDB from './config/db';
-connectDB();
-
 // routes
 import routes from './routes/routes';
 app.use('/api', routes);
