@@ -28,6 +28,10 @@ passport.use(
         //     }
         // });
         try {
+            // check the expiration
+            const expirationDate = new Date(jwt_payload.exp * 1000);
+            if (expirationDate > new Date()) return done(null, false);
+            // check the user
             const user = await prisma.users.findUnique({
                 where: { id: jwt_payload.id },
                 select: { id: true, username: true, email: true, uri: true },
