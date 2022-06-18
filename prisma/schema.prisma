@@ -21,7 +21,7 @@ model Users {
 
 model Profile {
   id     Int     @id @default(autoincrement())
-  avatar String
+  avatar String?
   uri    String? @unique
   Users  Users   @relation(fields: [userid], references: [id])
   userid Int     @unique

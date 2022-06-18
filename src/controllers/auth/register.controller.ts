@@ -31,6 +31,11 @@ const registerUser = async (req: Request, res: Response) => {
                 username,
                 email,
                 password: hashedPassword,
+                Profile: {
+                    create: {
+                        uri: username,
+                    },
+                },
             },
             select: {
                 id: true,
