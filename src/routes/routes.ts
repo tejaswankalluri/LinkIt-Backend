@@ -1,13 +1,17 @@
 import { Router } from 'express';
 const router = Router();
-import passport from 'passport';
 // controllers
 import { getHelloUser, postHelloUser } from '../controllers/hello.controller';
-import { registerUser, loginUser } from '../controllers/index';
+import { registerUser, loginUser, updateLinks, getLinks } from '../controllers/index';
 
-router.get('/getuser', passport.authorize('jwt', { session: false }), getHelloUser);
+import auth from '../middleware/auth';
+
+router.get('/getuser', auth(), getHelloUser);
 router.post('/adduser', postHelloUser);
-
+// admin
+router.get('/admin', auth(), getLinks);
+router.post('/admin', auth(), updateLinks);
+// auth
 router.post('/signup', registerUser);
 router.post('/login', loginUser);
 export default router;

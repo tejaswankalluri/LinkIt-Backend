@@ -31,7 +31,6 @@ const registerUser = async (req: Request, res: Response) => {
                 username,
                 email,
                 password: hashedPassword,
-                uri: username,
             },
             select: {
                 id: true,

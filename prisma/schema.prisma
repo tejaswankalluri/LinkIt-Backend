@@ -11,18 +11,18 @@ datasource db {
 }
 
 model Users {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
-  email    String  @unique
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  email    String   @unique
   password String
-  uri      String? @unique
-  Links    Links[]
+  links    Json?
+  Profile  Profile?
 }
 
-model Links {
-  id        String @id @default(uuid())
-  userid    Int
-  users     Users  @relation(fields: [userid], references: [id])
-  link_name String
-  url       String
+model Profile {
+  id     Int     @id @default(autoincrement())
+  avatar String
+  uri    String? @unique
+  Users  Users   @relation(fields: [userid], references: [id])
+  userid Int     @unique
 }
