@@ -15,12 +15,21 @@ const registerUser = async (req: Request, res: Response) => {
     try {
         const exist = await prisma.users.findUnique({ where: { email: email } });
         if (exist) {
-            return res.status(420).send({ message: 'Email already taken' });
+            return res.status(420).send({ message: 'Email already in use' });
         }
     } catch (err) {
         console.log(err);
         return res.status(500).send({ message: 'internal server error' });
     }
+    // check username exist
+    try {
+        const exist = await prisma.users.findUnique({ where: { username: username } });
+        if (exist) return res.status(420).send({ message: 'username already taken' });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ message: 'internal server error' });
+    }
+
     // hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 

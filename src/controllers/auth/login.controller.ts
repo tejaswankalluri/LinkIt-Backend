@@ -20,7 +20,6 @@ const loginUser = async (req: Request, res: Response) => {
         if (!checkpass) {
             return res.status(403).send({ message: 'Email or password is Invalid' });
         }
-        console.log(user.id);
         // sign token
         const payload = {
             username: user.username,
