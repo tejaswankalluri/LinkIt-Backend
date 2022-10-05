@@ -1,7 +1,7 @@
 {
-    "name": "typescript",
+    "name": "linkit-backend",
     "version": "1.0.0",
-    "description": "",
+    "description": "linkit is a social media account app.",
     "main": "/dist/app.js",
     "scripts": {
         "start": "node ./dist/app.js",
@@ -15,8 +15,8 @@
         "prepack": "pinst --disable",
         "postpack": "pinst --enable"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "https://tejaswan.netlify.app/",
+    "license": "MIT",
     "dependencies": {
         "@prisma/client": "^3.15.2",
         "@types/bcrypt": "^5.0.0",

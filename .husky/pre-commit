@@ -3,5 +3,4 @@
 
 yarn lint
 yarn build
-yarn prettier-format
 git add -A
