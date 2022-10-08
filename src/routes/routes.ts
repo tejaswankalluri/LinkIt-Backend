@@ -10,6 +10,8 @@ import {
     getPublicLinks,
     emailExist,
     usernameExist,
+    updateImage,
+    updateUsername,
 } from '../controllers/index';
 
 import auth from '../middleware/auth';
@@ -19,6 +21,8 @@ router.post('/adduser', postHelloUser);
 // admin
 router.get('/admin', auth(), getLinks);
 router.post('/admin', auth(), updateLinks);
+router.post('/admin/profile/updateimage', auth(), updateImage);
+router.post('/admin/profile/username', auth(), updateUsername);
 // auth
 router.post('/signup', registerUser);
 router.post('/login', loginUser);
