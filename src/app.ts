@@ -6,7 +6,9 @@ import passport from 'passport';
 import cors from 'cors';
 import helmet from 'helmet';
 import fileUpload from 'express-fileupload';
+import swaggerUi from 'swagger-ui-express';
 const PORT = process.env.PORT;
+import swaggerDocument from './swagger.json';
 
 // middleware
 app.use(express.json({ limit: '10mb' }));
@@ -21,6 +23,7 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(passport.initialize());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 import './middleware/passport';
 
 // routes

@@ -1,0 +1,684 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "LinkIt Backend",
+        "description": "Linkit manages muliple links of the users as a one page link. This is similar to the Linktree",
+        "contact": {
+            "name": "Tejaswan Kalluri",
+            "url": "https://tejaswan.netlify.app",
+            "email": "tejaswankalluri82522@gmail.com"
+        },
+        "version": "0.0.1",
+        "license": {
+            "name": "MIT",
+            "url": "https://choosealicense.com/licenses/mit/"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "variables": {}
+        },
+        {
+            "url": "https://linkit-backend.tejaswan.codes/api",
+            "variables": {}
+        }
+    ],
+    "paths": {
+        "/admin/profile/updateimage": {
+            "post": {
+                "tags": ["profile"],
+                "summary": "update image",
+                "description": "",
+                "operationId": "updateimage",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "multipart/form-data"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "encoding": {},
+                            "schema": {
+                                "required": ["data"],
+                                "type": "object",
+                                "properties": {
+                                    "data": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "example": {
+                                        "avatar": "https://res.cloudinary.com/dvvheza58/image/upload/v849374837/linkit_backend/userimages/tejaswan.jpg"
+                                    }
+                                },
+                                "example": {
+                                    "avatar": "https://res.cloudinary.com/dvvheza58/image/upload/v849374837/linkit_backend/userimages/tejaswan.jpg"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/profile/username": {
+            "post": {
+                "tags": ["profile"],
+                "summary": "update username",
+                "description": "",
+                "operationId": "updateusername",
+                "parameters": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/updateusernameRequest"
+                                    },
+                                    {
+                                        "example": {
+                                            "username": "tejaswan"
+                                        }
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "username": "tejaswan"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "example": {
+                                        "message": "username updated",
+                                        "username": "tejaswan"
+                                    }
+                                },
+                                "example": {
+                                    "message": "username updated",
+                                    "username": "tejaswan"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/exist/username": {
+            "post": {
+                "tags": ["exist"],
+                "summary": "username exist",
+                "description": "",
+                "operationId": "usernameexist",
+                "parameters": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/usernameexistRequest"
+                                    },
+                                    {
+                                        "example": {
+                                            "username": "techtoe12"
+                                        }
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "username": "techtoe12"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "meessage": "username is free"
+                                    }
+                                },
+                                "example": {
+                                    "meessage": "username is free"
+                                }
+                            }
+                        }
+                    },
+                    "420": {
+                        "description": "user already exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "meessage": "username already taken"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": []
+            }
+        },
+        "/exist/email": {
+            "post": {
+                "tags": ["exist"],
+                "summary": "email exist",
+                "description": "",
+                "operationId": "emailexist",
+                "parameters": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/emailexistRequest"
+                                    },
+                                    {
+                                        "example": {
+                                            "email": "testname@mail.com"
+                                        }
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "email": "testname@mail.com"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "applicaiton/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Email is free"
+                                }
+                            }
+                        }
+                    },
+                    "420": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "applicaiton/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Email already in use"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": []
+            }
+        },
+        "/user/:username": {
+            "get": {
+                "tags": ["public"],
+                "summary": "get links of the user",
+                "description": "",
+                "operationId": "getlinksoftheuser",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "applicaiton/json": {
+                                "schema": {},
+                                "example": {
+                                    "username": "tejaswan",
+                                    "email": "tejaswan@gmail.com",
+                                    "links": [
+                                        {
+                                            "link": "https://youtube.com",
+                                            "name": "youtube"
+                                        },
+                                        {
+                                            "link": "https://fb.com",
+                                            "name": "facebook"
+                                        },
+                                        {
+                                            "link": "https://instagram.com",
+                                            "name": "instagram"
+                                        },
+                                        {
+                                            "link": "https://www.twitter.com",
+                                            "name": "twitter"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "420": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "applicaiton/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "user not found"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": []
+            }
+        },
+        "/admin/": {
+            "post": {
+                "tags": ["admin"],
+                "summary": "update link",
+                "description": "",
+                "operationId": "updatelink",
+                "parameters": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/updatelinkRequest"
+                                    },
+                                    {
+                                        "example": {
+                                            "links": [
+                                                {
+                                                    "name": "youtube",
+                                                    "link": "https://youtube.com"
+                                                },
+                                                {
+                                                    "name": "facebook",
+                                                    "link": "https://fb.com"
+                                                },
+                                                {
+                                                    "name": "instagram",
+                                                    "link": "https://instagram.com"
+                                                },
+                                                {
+                                                    "name": "twitter",
+                                                    "link": "https://www.twitter.com"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "links": [
+                                    {
+                                        "name": "youtube",
+                                        "link": "https://youtube.com"
+                                    },
+                                    {
+                                        "name": "facebook",
+                                        "link": "https://fb.com"
+                                    },
+                                    {
+                                        "name": "instagram",
+                                        "link": "https://instagram.com"
+                                    },
+                                    {
+                                        "name": "twitter",
+                                        "link": "https://www.twitter.com"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "text/plain": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin": {
+            "get": {
+                "tags": ["admin"],
+                "summary": "get link",
+                "description": "",
+                "operationId": "getlink",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "text/plain": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/signup": {
+            "post": {
+                "tags": ["auth"],
+                "summary": "Register User",
+                "description": "",
+                "operationId": "RegisterUser",
+                "parameters": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RegisterUserRequest"
+                                    },
+                                    {
+                                        "example": {
+                                            "username": "test_112name",
+                                            "email": "testname1234@mail.com",
+                                            "password": "test123",
+                                            "conpassword": "test123"
+                                        }
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "username": "test_112name",
+                                "email": "testname1234@mail.com",
+                                "password": "test123",
+                                "conpassword": "test123"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "text/plain": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": []
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": ["auth"],
+                "summary": "Login User",
+                "description": "",
+                "operationId": "LoginUser",
+                "parameters": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LoginUserRequest"
+                                    },
+                                    {
+                                        "example": {
+                                            "email": "tejaswan@gmail.com",
+                                            "password": "Tejaswan@123"
+                                        }
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "email": "tejaswan@gmail.com",
+                                "password": "Tejaswan@123"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "text/plain": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "deprecated": false,
+                "security": []
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "updateusernameRequest": {
+                "title": "updateusernameRequest",
+                "required": ["username"],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "username": "tejaswan"
+                }
+            },
+            "usernameexistRequest": {
+                "title": "usernameexistRequest",
+                "required": ["username"],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "username": "techtoe12"
+                }
+            },
+            "emailexistRequest": {
+                "title": "emailexistRequest",
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "testname@mail.com"
+                }
+            },
+            "updatelinkRequest": {
+                "title": "updatelinkRequest",
+                "required": ["links"],
+                "type": "object",
+                "properties": {
+                    "links": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        },
+                        "description": ""
+                    }
+                },
+                "example": {
+                    "links": [
+                        {
+                            "name": "youtube",
+                            "link": "https://youtube.com"
+                        },
+                        {
+                            "name": "facebook",
+                            "link": "https://fb.com"
+                        },
+                        {
+                            "name": "instagram",
+                            "link": "https://instagram.com"
+                        },
+                        {
+                            "name": "twitter",
+                            "link": "https://www.twitter.com"
+                        }
+                    ]
+                }
+            },
+            "RegisterUserRequest": {
+                "title": "RegisterUserRequest",
+                "required": ["username", "email", "password", "conpassword"],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "conpassword": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "username": "test_112name",
+                    "email": "testname1234@mail.com",
+                    "password": "test123",
+                    "conpassword": "test123"
+                }
+            },
+            "LoginUserRequest": {
+                "title": "LoginUserRequest",
+                "required": ["email", "password"],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "tejaswan@gmail.com",
+                    "password": "Tejaswan@123"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "security": [],
+    "tags": [
+        {
+            "name": "profile",
+            "description": ""
+        },
+        {
+            "name": "exist",
+            "description": ""
+        },
+        {
+            "name": "public",
+            "description": ""
+        },
+        {
+            "name": "admin",
+            "description": ""
+        },
+        {
+            "name": "auth",
+            "description": ""
+        }
+    ]
+}
