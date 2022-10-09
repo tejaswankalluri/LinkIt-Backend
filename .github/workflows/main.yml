@@ -37,25 +37,34 @@ jobs:
               echo cloudinary_api_key = ${{secrets.ENV_CLOUDINARY_API_KEY}} >> .env
               echo cloudinary_api_secret = ${{secrets.ENV_CLOUDINARY_API_SECRET}} >> .env
 
-      - name: yarn install and build
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          script: |
-            cd ${{ secrets.TARGET_PATH }}
-            yarn install --ignore-engines
-            yarn build
+      # - name: yarn install and build
+      #   uses: appleboy/ssh-action@v0.1.5
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     port: 22
+      #     script: |
+      #       cd ${{ secrets.TARGET_PATH }}
+      #       yarn install --ignore-engines
+      #       yarn build
 
-      - name: pm2 restart 
-        uses: appleboy/ssh-action@v0.1.5
+      # - name: pm2 restart 
+      #   uses: appleboy/ssh-action@v0.1.5
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     port: 22
+      #     script: |
+      #      cd ~
+      #      ./Linkit-backend.sh
+      - id: ssh-linkit
+        uses: invi5H/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          script: |
-           cd ~
-           ./Linkit-backend.sh
+          NAME: linkit
+          SSH_HOST: ${{ secrets.HOST }}
+          SSH_PORT: 22
+          SSH_USER: ${{ secrets.USERNAME }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+      - run: ssh ${{ steps.ssh-linkit.outputs.SERVER }} cd ~ && ./Linkit-backend.sh
