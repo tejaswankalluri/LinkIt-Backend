@@ -64,8 +64,7 @@ jobs:
         with:
           command: |
             echo $SHELL
-            cd ~
-            ./Linkit-backend.sh 
+            which node
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }} 
           key: ${{ secrets.SSH_KEY}}
