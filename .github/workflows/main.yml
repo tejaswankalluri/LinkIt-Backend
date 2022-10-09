@@ -21,7 +21,7 @@ jobs:
           target: ${{ secrets.TARGET_PATH }}
 
       - name: add .env
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -38,7 +38,7 @@ jobs:
               echo cloudinary_api_secret = ${{secrets.ENV_CLOUDINARY_API_SECRET}} >> .env
 
       - name: yarn install and build
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -50,7 +50,7 @@ jobs:
             yarn build
 
       - name: pm2 restart 
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
