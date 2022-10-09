@@ -55,4 +55,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          script: pm2 restart ${{ secrets.PM2_ID }}
+          script: |
+           cd ${{ secrets.TARGET_PATH }}
+           pm2 restart ${{ secrets.PM2_ID }}
