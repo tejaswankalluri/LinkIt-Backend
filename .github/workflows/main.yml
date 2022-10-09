@@ -57,5 +57,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-           cd ${{ secrets.TARGET_PATH }}
-           pm2 restart ${{ secrets.PM2_ID }}
+           cd ~
+           ./Linkit-backend.sh
