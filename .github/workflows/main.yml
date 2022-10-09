@@ -63,6 +63,7 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
+            echo $SHELL
             cd ~
             ./Linkit-backend.sh 
           host: ${{ secrets.HOST }}
