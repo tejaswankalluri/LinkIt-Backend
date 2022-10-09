@@ -45,7 +45,8 @@ jobs:
           port: 22
           script: |
             cd ${{ secrets.TARGET_PATH }}
-            yarn && yarn build
+            yarn install --ignore-engines
+            yarn build
 
       - name: pm2 restart 
         uses: appleboy/ssh-action@master
