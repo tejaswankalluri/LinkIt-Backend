@@ -64,7 +64,7 @@ jobs:
         with:
           command: |
             cd ~
-            ls -a
+            ./Linkit-backend.sh 
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }} 
           key: ${{ secrets.SSH_KEY}}
