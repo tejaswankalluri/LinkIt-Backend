@@ -66,6 +66,7 @@ jobs:
             source .profile
             echo $SHELL
             which node
+            pwd
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USERNAME }} 
           key: ${{ secrets.SSH_KEY}}
