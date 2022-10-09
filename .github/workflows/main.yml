@@ -49,15 +49,15 @@ jobs:
             yarn install --ignore-engines
             yarn build
 
-      # - name: pm2 restart 
-      #   uses: appleboy/ssh-action@v0.1.5
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.SSH_KEY }}
-      #     port: 22
-      #     script: |
-      #      cd ~
+      - name: pm2 restart 
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+           pm2 list
       #      ./Linkit-backend.sh
       # - name: ls -a via ssh
       #   uses: fifsky/ssh-action@master
