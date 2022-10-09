@@ -12,7 +12,7 @@ const emailExist = async (req: Request, res: Response) => {
     try {
         const exist = await prisma.users.findUnique({ where: { email: email } });
         if (exist) return res.status(420).send({ message: 'Email already in use' });
-        else return res.status(200).send({ meessage: 'Email is free' });
+        else return res.status(200).send({ message: 'Email is free' });
     } catch (err) {
         console.log(err);
         return res.status(500).send({ message: 'internal server error' });
@@ -28,7 +28,7 @@ const usernameExist = async (req: Request, res: Response) => {
     try {
         const exist = await prisma.users.findUnique({ where: { username: username } });
         if (exist) return res.status(420).send({ message: 'username already taken' });
-        else return res.status(200).send({ meessage: 'username is free' });
+        else return res.status(200).send({ message: 'username is free' });
     } catch (err) {
         console.log(err);
         return res.status(500).send({ message: 'internal server error' });
