@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: copy repo to server
         uses: appleboy/scp-action@master
         with:
@@ -16,4 +17,39 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           source: "."
-          target: ${{ secrets.TARGET_PATH }} 
+          target: ${{ secrets.TARGET_PATH }}
+
+      - name: add .env
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+              cd ${{ secrets.TARGET_PATH }}
+              touch .env
+              echo PORT = ${{ secrets.ENV_PORT }} >> .env
+              echo JWT_SECRET = ${{secrets.ENV_JWT_SECRET}} >> .env
+              echo DATABASE_URL = ${{secrets.ENV_DATABASE_URL}} >> .env
+              echo cloudinary_cloud_name = ${{secrets.ENV_CLOUDINARY_CLOUD_NAME}} >> .env
+              echo cloudinary_api_key = ${{secrets.ENV_CLOUDINARY_API_KEY}} >> .env
+              echo cloudinary_api_secret = ${{secrets.ENV_CLOUDINARY_API_SECRET}} >> .env
+
+      - name: yarn install and build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: yarn && yarn build
+
+      - name: pm2 restart 
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: pm2 restart ${{ secrets.PM2_ID }}
