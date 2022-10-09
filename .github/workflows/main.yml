@@ -59,12 +59,12 @@ jobs:
       #     script: |
       #      cd ~
       #      ./Linkit-backend.sh
-      - id: ssh-linkit
-        uses: invi5H/ssh-action@v1
+      - name: ls -a via ssh
+        uses: fifsky/ssh-action@master
         with:
-          NAME: linkit
-          SSH_HOST: ${{ secrets.HOST }}
-          SSH_PORT: 22
-          SSH_USER: ${{ secrets.USERNAME }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-      - run: ssh ${{ steps.ssh-linkit.outputs.SERVER }} cd ~ && ./Linkit-backend.sh
+          command: |
+            cd ~
+            ls -a
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME }} 
+          key: ${{ secrets.SSH_KEY}}
