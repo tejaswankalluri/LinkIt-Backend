@@ -36,6 +36,7 @@ jobs:
               echo cloudinary_cloud_name = ${{secrets.ENV_CLOUDINARY_CLOUD_NAME}} >> .env
               echo cloudinary_api_key = ${{secrets.ENV_CLOUDINARY_API_KEY}} >> .env
               echo cloudinary_api_secret = ${{secrets.ENV_CLOUDINARY_API_SECRET}} >> .env
+              exit
 
       - name: yarn install and build
         uses: appleboy/ssh-action@v0.1.5
