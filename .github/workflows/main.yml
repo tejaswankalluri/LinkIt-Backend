@@ -37,17 +37,17 @@ jobs:
               echo cloudinary_api_key = ${{secrets.ENV_CLOUDINARY_API_KEY}} >> .env
               echo cloudinary_api_secret = ${{secrets.ENV_CLOUDINARY_API_SECRET}} >> .env
 
-      # - name: yarn install and build
-      #   uses: appleboy/ssh-action@v0.1.5
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.SSH_KEY }}
-      #     port: 22
-      #     script: |
-      #       cd ${{ secrets.TARGET_PATH }}
-      #       yarn install --ignore-engines
-      #       yarn build
+      - name: yarn install and build
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd ${{ secrets.TARGET_PATH }}
+            yarn install --ignore-engines
+            yarn build
 
       # - name: pm2 restart 
       #   uses: appleboy/ssh-action@v0.1.5
@@ -59,14 +59,14 @@ jobs:
       #     script: |
       #      cd ~
       #      ./Linkit-backend.sh
-      - name: ls -a via ssh
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            source .profile
-            echo $SHELL
-            which node
-            pwd
-          host: ${{ secrets.HOST }}
-          user: ${{ secrets.USERNAME }} 
-          key: ${{ secrets.SSH_KEY}}
+      # - name: ls -a via ssh
+      #   uses: fifsky/ssh-action@master
+      #   with:
+      #     command: |
+      #       source .profile
+      #       echo $SHELL
+      #       which node
+      #       pwd
+      #     host: ${{ secrets.HOST }}
+      #     user: ${{ secrets.USERNAME }} 
+      #     key: ${{ secrets.SSH_KEY}}
