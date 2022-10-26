@@ -1,0 +1,62 @@
+name: CI - Main
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: copy repo to server
+        uses: appleboy/scp-action@v0.1.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          rm: true
+          source: "."
+          target: ${{ secrets.TARGET_PATH }}
+
+      - name: add .env
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+              cd ${{ secrets.TARGET_PATH }}
+              touch .env
+              echo PORT = ${{ secrets.ENV_PORT }} >> .env
+              echo JWT_SECRET = ${{secrets.ENV_JWT_SECRET}} >> .env
+              echo DATABASE_URL = ${{secrets.ENV_DATABASE_URL}} >> .env
+              echo cloudinary_cloud_name = ${{secrets.ENV_CLOUDINARY_CLOUD_NAME}} >> .env
+              echo cloudinary_api_key = ${{secrets.ENV_CLOUDINARY_API_KEY}} >> .env
+              echo cloudinary_api_secret = ${{secrets.ENV_CLOUDINARY_API_SECRET}} >> .env
+              exit
+
+      - name: yarn install and build
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd ${{ secrets.TARGET_PATH }}
+            yarn install --ignore-engines
+            yarn build
+
+      - name: pm2 restart 
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+           cd ${{ secrets.TARGET_PATH }}
+           pm2 restart ${{ secrets.PM2_ID }}
