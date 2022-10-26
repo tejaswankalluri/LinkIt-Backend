@@ -15,7 +15,7 @@ const getLinks = async (req: Request, res: Response) => {
     try {
         const links = await prisma.users.findUnique({
             where: { id: req.user.id },
-            select: { username: true, email: true, links: true },
+            select: { username: true, email: true, links: true, avatar: true },
         });
         return res.status(200).send(links);
     } catch (err) {
