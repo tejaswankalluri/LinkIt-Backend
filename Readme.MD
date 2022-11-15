@@ -1,7 +1,5 @@
 # LinkIt
 
-[![wakatime](https://wakatime.com/badge/github/tejaswankalluri/LinkIt-Backend.svg)](https://wakatime.com/badge/github/tejaswankalluri/LinkIt-Backend)
-
 ## Main focus on LinkIt
 
 Linkit manages muliple links of the users as a one page link. This is similar to the
@@ -53,6 +51,20 @@ Linkit manages muliple links of the users as a one page link. This is similar to
 
     `yarn dev`
 
+## Running on Docker
+
+All the services needed in the project is already provided on `docker-compose.yml` file
+
+-   Create the `.env` file copy the text from `.env.example` and fill all the variables
+
+-   Make sure docker is installed on your system
+
+-   run the application
+
+    `docker-compose --build -d`
+
+-   go to `http://localhost:8000` that's it.
+
 ## API Reference
 
 #### Login User
@@ -79,7 +91,11 @@ Linkit manages muliple links of the users as a one page link. This is similar to
 | `password`              | `string` | **Required**. pasword of the user  |
 | `password_confirmation` | `string` | **Required**. for confirmation     |
 
-## Still API's in Devlopement 🧑‍💻
+## For more Api's
+
+```http
+  Get /api-docs
+```
 
 ## License
 

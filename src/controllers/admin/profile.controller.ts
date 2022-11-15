@@ -41,17 +41,10 @@ const updateImage = async (req: Request, res: Response) => {
                 username: 'tejaswan',
             },
             data: {
-                Profile: {
-                    update: {
-                        avatar: resuploadsinglefile.secure_url,
-                    },
-                },
-            },
-            include: {
-                Profile: true,
+                avatar: resuploadsinglefile.secure_url,
             },
         });
-        if (updateprofile) return res.send({ avatar: updateprofile.Profile?.avatar });
+        if (updateprofile) return res.send({ avatar: updateprofile.avatar });
     } catch (err) {
         return res.status(502).send({ message: 'unable to add link in the database' });
     }
