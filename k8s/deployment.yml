@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkit-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: linkit-backend
+  template:
+    metadata:
+      labels:
+        app: linkit-backend
+    spec:
+      containers:
+        - name: linkit-backend
+          image: techtoe/linkit-backend:0.0.1
+          resources:
+            limits:
+              memory: '500Mi'
+              cpu: '500m'
+          ports:
+            - containerPort: 8000
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+    type: RollingUpdate

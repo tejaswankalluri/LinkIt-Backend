@@ -1,0 +1,17 @@
+# this is just for testing in k3d for more https://github.com/tejaswankalluri/configs/tree/main/kubernetes/k3d
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: linkit-backend-svc
+  name: linkit-backend-svc
+spec:
+  ports:
+    - name: 80-80
+      nodePort: 30080
+      port: 80
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app: linkit-backend
+  type: NodePort

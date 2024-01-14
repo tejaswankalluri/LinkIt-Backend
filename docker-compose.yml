@@ -4,25 +4,29 @@ services:
   # When Docker Compose starts this container it will automatically
   # use the Dockerfile in the directory to configure it
   app:
-    build: .
     depends_on:
       # Our app does not work without our database
       # so this ensures our database is loaded first
       - postgresdb
     restart: always
+    image: linkit-backend:latest
+    build: .
     ports:
-      - "8000:8000"
-    volumes:
-      # Maps our current project directory `.` to
-      # our working directory in the container
-      - ./:/usr/src/app/
-      # node_modules workaround for volumes
-      # https://stackoverflow.com/a/32785014
-      - /usr/src/app/node_modules
-
+      - '8000:8000'
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgresdb:5432/linkit
+    # volumes:
+    #     # Maps our current project directory `.` to
+    #     # our working directory in the container
+    #     - ./:/usr/src/app/
+    #     # node_modules workaround for volumes
+    #     # https://stackoverflow.com/a/32785014
+    #     - ./node_modules:/usr/src/app/node_modules
+    networks:
+      - app-network
   # This is the configuration for our PostgreSQL database container
   # Note the `postgres` name is important, in out Node app when we refer
-  # to  `host: "postgres"` that value is mapped on the network to the 
+  # to  `host: "postgres"` that value is mapped on the network to the
   # address of this container.
   postgresdb:
     image: postgres:14.1-alpine
@@ -37,12 +41,19 @@ services:
       - POSTGRES_DB=linkit
     ports:
       # Standard port for PostgreSQL databases
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       # When the PostgresSQL container is started it will run any scripts
       # provided in the `docker-entrypoint-initdb.d` directory, this connects
       # our seed file to that directory so that it gets run
-      # - ./database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+      - ./migration/seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
       - data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
 volumes:
   data:
+
+networks:
+  app-network:
+    driver: bridge
